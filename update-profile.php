@@ -28,12 +28,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($errors)) {
-        $stmt = $conn->prepare("UPDATE users SET full_name = ?, email = ? WHERE username = ?");
-        if ($stmt->execute([$full_name, $email, $username])) {
-            header("Location: profile.php");
-            exit();
-        } else {
-            $errors[] = "Error updating profile.";
+        try {
+            $stmt = $conn->prepare("UPDATE users SET full_name = ?, email = ? WHERE username = ?");
+            if ($stmt->execute([$full_name, $email, $username])) {
+                $_SESSION['success'] = "Profile updated successfully.";
+                header("Location: profile.php");
+                exit();
+            } else {
+                $errors[] = "Error updating profile.";
+            }
+        } catch (PDOException $e) {
+            $errors[] = "Database error: " . $e->getMessage();
         }
     }
 
