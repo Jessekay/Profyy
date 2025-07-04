@@ -1,9 +1,9 @@
 <?php
 $host = "localhost";
 $port = "5432";
-$dbname = "user_management";
+$dbname = "proffy";
 $user = "postgres";
-$password = "your_password"; // Replace with your PostgreSQL password
+$password = "12092001"; // Replace with your PostgreSQL password
 
 try {
     $conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password");
